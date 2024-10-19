@@ -104,7 +104,7 @@
   </xsl:template>
   
   
-  <!-- R syntax highlighting, code[lower-case(@language)='r'] -->
+  <!-- R syntax highlighting for code[lower-case(@language)='r'] -->
   <!-- Based on https://github.com/highlightjs/highlight.js/blob/main/src/languages/r.js -->
   
   <xsl:variable name="r:IDENT_RE">([a-zA-Z]|\.[._a-zA-Z])[._a-zA-Z0-9]*|\.(\s)|\.$</xsl:variable>
@@ -212,9 +212,9 @@
     <!-- JATS output -->
     <!--<styled-content style="{$style}"><xsl:sequence select="$styled-content"/></styled-content>-->
     <!-- HTML output -->
-    <span class="{$style}">
-            <xsl:sequence select="$styled-content"/>
-        </span>
+    <span class="{$style}" title="{$style}">
+        <xsl:sequence select="$styled-content"/>
+    </span>
   </xsl:function>
   
   

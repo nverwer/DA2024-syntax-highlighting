@@ -76,7 +76,7 @@
   </xsl:template>
  
   <xsl:template match="code//comment">
-    <xsl:call-template name="make-span-move-content">
+    <xsl:call-template name="make-span">
       <xsl:with-param name="class" select="'comment'"/>
     </xsl:call-template>
   </xsl:template>
@@ -86,16 +86,6 @@
     <span class="{$class}" title="{$class}">
       <xsl:apply-templates select="node()" mode="spanned"/>
     </span>
-  </xsl:template>
-
-  <xsl:template name="make-span-move-content">
-    <xsl:param name="class" as="xs:string"/>
-    <!-- named content is moved outside the comment -->
-    <xsl:variable name="named-content" select="named-content, named-content/following-sibling::text()"/>
-    <span class="{$class}" title="{$class}">
-      <xsl:sequence select="(node() except $named-content)/string()"/>
-    </span>
-    <xsl:apply-templates select="$named-content"/>
   </xsl:template>
 
   <xsl:template match="*" mode="spanned">
