@@ -26,7 +26,7 @@ gc()
 
 <h1>Named content with output (Transparent Invisible XML)</h1>
 <div>
-  There is a problem here: The comment incudes the output.
+  There is a problem here: The comment includes the output.
   The rule for comment includes spaces and 'nothing' at the end, and the output element looks like 'nothing'.
   The fix for this is not yet completely correct.
 </div>
@@ -42,8 +42,8 @@ gc()
 
 <code language="r" language-version="4.3.2" xml:space="preserve">
 corpus.df &lt;- data.frame( # make corpus.df a data frame w/
-  WORD=words,           # the words in column 1
-  PART=parts)           # the parts in column 2
+  WORD=words,            # the words in column 1
+  PART=parts)            # the parts in column 2
 saveRDS(corpus.df, file="files/corpus.df.RDS") # save it, then ...
 corpus.df[c(2:3, 13:14, 24:25, 35:36, 46:47),] # show (abbreviated) output
 <named-content content-type="output">

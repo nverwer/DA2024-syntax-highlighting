@@ -23,6 +23,7 @@ as element(code)
   $code
   => transform:transform(doc('xmldb:exist://db/apps/da2024/xsl/preprocess.xsl'), ())
   => $sc:parser()
+  => transform:transform(doc('xmldb:exist://db/apps/da2024/xsl/move-code-up.xsl'), ())
 };
 
 
