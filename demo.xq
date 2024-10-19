@@ -19,6 +19,7 @@ declare function local:serialize($code as element(code))
   , $code/node()
   }
   => serialize(map{'indent': true()})
+  (: => sc:xml() :)
 };
 
 
@@ -73,7 +74,7 @@ declare function local:code-section($code as element(code))
       <input type="radio" name="{$id-prefix}tabs" id="{$id-prefix}regexp"></input>
       <input type="radio" name="{$id-prefix}tabs" id="{$id-prefix}ixml"></input>
       <input type="radio" name="{$id-prefix}tabs" id="{$id-prefix}ixml-postprocessed"></input>
-      <input type="radio" name="{$id-prefix}tabs" id="{$id-prefix}ixml-simplified"></input>
+      <input type="radio" name="{$id-prefix}tabs" id="{$id-prefix}ixml-formatted"></input>
       <label for="{$id-prefix}original">original</label>
       <label for="{$id-prefix}regexp">regexp</label>
       <label for="{$id-prefix}ixml">ixml</label>
@@ -107,6 +108,7 @@ return
         h1 {
           font-size: 14pt;
         }
+
         .tabs-content {
           font-size: 12pt !important; /* Increase for demo! */
         }
@@ -151,6 +153,11 @@ return
         .tabs input[type="radio"]:nth-of-type(5):checked ~ .tabs-content>*:nth-of-type(5) {
           visibility: visible;
         }
+
+        .xml-element { color: #20749d; }
+        .xml-attribute { color: #444466; }
+        .xml-text { color: #747500; }
+        .xml-comment { color:#790000 }
       ]]></style>
       <link rel="stylesheet" href="regexp-sc.css"/>
       <link rel="stylesheet" href="ixml-sc.css"/>

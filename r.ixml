@@ -11,13 +11,15 @@ That is also why we have non-terminals for almost all terminals.
 prog : _ , expr_or_assign ** prog_separator , _
 .
 
-prog_separator : semicolon ; newline
+prog_separator
+: _ , semicolon , _
+; newline
 .
 
 -exprlist
 : expr_or_assign
-; exprlist , semicolon , expr_or_assign
-; exprlist , semicolon
+; exprlist , _ , semicolon , _ , expr_or_assign
+; exprlist , _ , semicolon
 ; exprlist , newline , expr_or_assign
 ; exprlist , newline
 .
@@ -28,81 +30,81 @@ prog_separator : semicolon ; newline
 equal_assign : expr , _ , eq_assign , _ , expr_or_assign
 .
 
-expr : -expr_18
+expr : expr_18
 .
 
-expr_18
+-expr_18
 : expr_16 , _ , question , _ , expr_16
 ; question , _ , expr_16
-; -expr_16
+; expr_16
 .
 
-expr_16
+-expr_16
 : expr_15 , _ , left_assign , _ , expr_16
-; -expr_15
+; expr_15
 .
 
-expr_15
+-expr_15
 : expr_15 , _ , right_assign , _ , expr_14
-; -expr_14
+; expr_14
 .
 
-expr_14
+-expr_14
 : expr_14 , _ , tilda , _ , expr_13
 ; tilda , expr_13
-; -expr_13
+; expr_13
 .
 
-expr_13
+-expr_13
 : expr_13 , _ , (or1 ; or2) , _ , expr_12
-; -expr_12
+; expr_12
 .
 
-expr_12
+-expr_12
 : expr_12 , _ , (and1 ; and2) , _ , expr_11
-; -expr_11
+; expr_11
 .
 
-expr_11
+-expr_11
 : not , _ , expr_10
-; -expr_10
+; expr_10
 .
 
-expr_10
+-expr_10
 : expr_9 , _ , compare , _ , expr_9
-; -expr_9
+; expr_9
 .
 
-expr_9
+-expr_9
 : expr_9 , _ , plus_minus , _ , expr_8
-; -expr_8 .
+; expr_8 .
 
-expr_8
+-expr_8
 : expr_8 , _ , times_divide , _ , expr_7
-; -expr_7
+; expr_7
 .
 
-expr_7
+-expr_7
 : expr_7 , _ , special , _ , expr_6
-; -expr_6
+; expr_6
 .
 
-expr_6
+-expr_6
 : expr_6 , _ , seq , _ , expr_5
-; -expr_5
+; expr_5
 .
 
-expr_5
+-expr_5
 : plus_minus , _ , expr_4
-; -expr_4
+; expr_4
 .
 
-expr_4
+-expr_4
 : expr_2 , _ , power , _ , expr_4
-; -expr_2
+; expr_2
 .
 
-expr_2
+-expr_2
 : function_definition
 ; if , _ , ifcond , _ , expr_or_assign
 ; if , _ , ifcond , _ , expr_or_assign , _ , else , _ , expr_or_assign
@@ -114,7 +116,7 @@ expr_2
 ; extract_call
 ; block_expr
 ; lpar , _ , expr_or_assign , _ , rpar
-; -expr_0
+; expr_0
 .
 
 function_definition
@@ -146,7 +148,7 @@ bcns_expr
 ; -expr_2 { was `expr_0`, but that fails on `f(x)[i]` }
 .
 
-expr_0
+-expr_0
 : bool ; num_const ; num
 ; str_const
 ; null_const
@@ -169,11 +171,11 @@ module_identifier
 .
 
 formlist
-: ( symbol , ( _ , eq_assign , _ , expr )? ) ++ comma
+: ( symbol , ( _ , eq_assign , _ , expr )? ) ++ ( _ , comma , _ )
 .
 
 sublist
-: sub ++ comma , comma?
+: sub ++ ( _ , comma , _ ) , ( _ , comma , _ )?
 .
 
 sub
@@ -348,10 +350,10 @@ comment : '#' , ~[#a;#d]*
 ; [" ";#9]* , comment , [#a;#d]+ , _
 .
 
-comma : _ , ',' , _
+comma : ','
 .
 
-semicolon : _ , ';' , _
+semicolon : ';'
 .
 
 newline

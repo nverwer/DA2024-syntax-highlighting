@@ -1,109 +1,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:r="https://www.r-project.org/" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:da="http://www.declarative.amsterdam/namespace" exclude-result-prefixes="#all" version="3.0">
   
-  <!--
-    Conversion of JATS <code> blocks to HTML
-    When available, syntax highlighting will be added.
-    Some elements inside <code>, such as <named-content> and <styled-content>, will be converted but not highlighted.
-    
-    List of highlighting elements:
-    * common for all highlighting:
-      span/@class may have the values of all styled-content/@style and named-content/@content-type that occur inside code
-    * XML:
-      span/@class: xmlcode-attribute, xmlcode-attributename, xmlcode-attributevalue, xmlcode-cdata, xmlcode-pi, xmlcode-piintro,
-          xmlcode-doctype, xmlcode-element, xmlcode-elementname
-    * R:
-      span/@class: comment, string, literal, keyword, punctuation, operator, number, module-identifier, identifier, function-call, parameter
-  -->
-  
   <xsl:mode on-no-match="shallow-copy"/>
-  
-  <!-- XML syntax highlighting for DA, code[@code-type eq 'xml'] -->
-  
-  <xsl:variable name="da:debug" as="xs:boolean" select="true()" static="yes"/>
-  
-  <xsl:function name="da:process-attributes" as="node()*">
-    <xsl:param name="text" as="xs:string"/>
-    <xsl:for-each select="$text">
-            <xsl:call-template name="da:match-attributes"/>
-        </xsl:for-each>
-  </xsl:function>
-  
-  <xsl:template name="da:match-markup">
-    <xsl:analyze-string select="." regex="&lt;!\[CDATA\[.*?\]\]&gt;" flags="ms">
-      <xsl:matching-substring>
-        <span class="xmlcode-cdata">
-            <xsl:copy-of select="regex-group(0)"/>
-        </span>
-      </xsl:matching-substring>
-      <xsl:non-matching-substring>
-        <xsl:for-each select=".">
-          <xsl:analyze-string select="." regex="&lt;([^&gt;&lt;\s]+)([^&gt;]*)&gt;" flags="ms">
-            <xsl:matching-substring>
-              <xsl:variable name="start-string" as="xs:string" select="regex-group(1)"/>
-              <xsl:choose>
-                <xsl:when test="starts-with($start-string, '?')">
-                  <!-- Will also match XML declaration; pseudo-attributes will be treated as attributes. -->
-                  <span class="xmlcode-pi">
-                    <span class="xmlcode-piintro">&lt;<xsl:value-of select="$start-string"/>
-                  </span>
-                  <xsl:copy-of select="da:process-attributes(regex-group(2))"/>&gt;</span>
-                </xsl:when>
-                <xsl:when test="$start-string eq '!DOCTYPE'">
-                  <!-- TODO internal subsets will be problematic, since they contain nested > characters. -->
-                  <span class="xmlcode-doctype">&lt;!DOCTYPE<xsl:value-of select="regex-group(2)"/>&gt;</span>
-                </xsl:when>
-                <xsl:otherwise>
-                  <span class="xmlcode-element">
-                    <xsl:text>&lt;</xsl:text>
-                    <span class="xmlcode-elementname">
-                      <xsl:value-of select="regex-group(1)"/>
-                    </span>
-                    <xsl:copy-of select="da:process-attributes(regex-group(2))"/>
-                    <xsl:text>&gt;</xsl:text>
-                  </span>
-                </xsl:otherwise>
-              </xsl:choose>
-            </xsl:matching-substring>
-            <xsl:non-matching-substring>
-              <xsl:value-of select="."/>
-            </xsl:non-matching-substring>
-          </xsl:analyze-string>
-        </xsl:for-each>
-      </xsl:non-matching-substring>
-    </xsl:analyze-string>
-  </xsl:template>
-  
-  <xsl:template name="da:match-attributes">
-    <xsl:variable name="quot" as="xs:string">"</xsl:variable>
-    <xsl:variable name="apos" as="xs:string">'</xsl:variable>
-    <xsl:variable name="attribute-name-regex" as="xs:string" select="'([^\s=]+)'"/>
-    <xsl:variable name="attr-value-inside-quotes-regex" as="xs:string" select="$quot || '[^' || $quot || ']*' || $quot"/>
-    <xsl:variable name="attr-value-inside-apos-regex" as="xs:string" select="$apos || '[^' || $apos || ']*' || $apos"/>
-    <xsl:variable name="attr-value-regex" as="xs:string" select="'((' || $attr-value-inside-quotes-regex || ')|(' || $attr-value-inside-apos-regex || '))'"/>
-    <xsl:variable name="attribute-regex" as="xs:string" select="$attribute-name-regex || '(\s*=\s*)' || $attr-value-regex"/>
-    
-    <xsl:message use-when="$da:debug">Attribute regex: <xsl:value-of select="$attribute-regex"/>
-        </xsl:message>
-    
-    <xsl:analyze-string select="." regex="{$attribute-regex}">
-      <xsl:matching-substring>
-        <span class="xmlcode-attribute">
-          <span class="xmlcode-attributename">
-                        <xsl:value-of select="regex-group(1)"/>
-                    </span>
-          <xsl:value-of select="regex-group(2)"/><!-- The = plus any whitespace -->
-          <span class="xmlcode-attributevalue">
-                        <xsl:value-of select="regex-group(3)"/>
-                    </span>
-        </span>
-      </xsl:matching-substring>
-      <xsl:non-matching-substring>
-                <xsl:value-of select="."/>
-            </xsl:non-matching-substring>
-    </xsl:analyze-string>
-  </xsl:template>
-  
-  
+
   <!-- R syntax highlighting for code[lower-case(@language)='r'] -->
   <!-- Based on https://github.com/highlightjs/highlight.js/blob/main/src/languages/r.js -->
   
@@ -212,22 +110,17 @@
     <!-- JATS output -->
     <!--<styled-content style="{$style}"><xsl:sequence select="$styled-content"/></styled-content>-->
     <!-- HTML output -->
-    <span class="{$style}" title="{$style}">
+    <span class="{$style}">
         <xsl:sequence select="$styled-content"/>
     </span>
   </xsl:function>
   
-  
-  <!-- Common template for <code>, with syntax highlighting when available. -->
   
   <xsl:template match="code">
     <!-- unindent is the extra, superfluous spacing that all lines have -->
     <xsl:variable name="unindent" as="xs:string?" select="(analyze-string(string(.), '^( *)\S', 'm')/fn:match/fn:group/string-length(.) =&gt; min()) ! (1 to .) ! ' ' =&gt; string-join('')"/>
     <code>
       <xsl:choose>
-        <xsl:when test="@code-type eq 'xml'">
-          <xsl:call-template name="da:match-markup"/>
-        </xsl:when>
         <xsl:when test="lower-case(@language)='r' and not(@code-type='output')">
           <xsl:apply-templates select="node()">
             <xsl:with-param name="unindent" select="$unindent"/>
@@ -245,14 +138,14 @@
   
   <xsl:template match="code/styled-content">
     <span class="{string(@style)}">
-            <xsl:apply-templates select="node()"/>
-        </span>
+        <xsl:apply-templates select="node()"/>
+    </span>
   </xsl:template>
   
   <xsl:template match="code/named-content">
     <span class="{string(@content-type)}">
-            <xsl:apply-templates select="node()"/>
-        </span>
+        <xsl:apply-templates select="node()"/>
+    </span>
   </xsl:template>
   
 </xsl:stylesheet>

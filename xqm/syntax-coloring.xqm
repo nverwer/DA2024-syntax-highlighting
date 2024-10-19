@@ -43,3 +43,10 @@ as element(code)
   => sc:ixml-postprocessed()
   => transform:transform(doc('xmldb:exist://db/apps/da2024/xsl/jats-code-tixml.xsl'), ())
 };
+
+
+declare function sc:xml($xml as element())
+{
+  $xml
+  => transform:transform(doc('xmldb:exist://db/apps/da2024/xsl/xml-highlighting.xsl'), ())
+};
