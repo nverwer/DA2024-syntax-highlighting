@@ -1,0 +1,21 @@
+{
+    "servers": {
+        "localhost": {
+            "server": "http://localhost:8080/exist",
+            "user": "admin",
+            "password": "1n0rd1n@teL4",
+            "root": "/db/apps/da2024"
+        }
+    },
+    "sync": {
+        "server": "localhost",
+        "dir": ".",
+        "polling": false,
+        "interval": 100,
+        "ignore": [
+            ".existdb.json",
+            ".git/**",
+            "other.stuff/**"
+        ]
+    }
+}

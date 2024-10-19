@@ -1,0 +1,98 @@
+<test>
+
+<h1>Assignment</h1>
+
+<code language="r" language-version="4.3.2" xml:space="preserve">
+words &lt;- factor(letters[c(2,1,3,14,2,5,21,9,2,1,19,1,20,2,5,23,9,14,2,9,1,
+  7,1,2,5,8,19,20,1,2,1,7,8,1,2,5,1,1,20,2,1,8,1,1,2,5,1,24,1,20)])
+parts &lt;- factor(paste0("p", rep(1:5, c(9,10,10,10,11))))
+</code>
+
+<h1>A comment in R code</h1>
+
+<code language="r" language-version="4.3.2" xml:space="preserve">
+"+"(2, 3) # same as the 'normal' way of 2+3
+</code>
+
+<h1>Named parameters</h1>
+
+<code language="r" language-version="4.3.2" xml:space="preserve">
+rm(list=ls(all=TRUE))
+sapply(c("data.table", "doParallel", "edgeR", "foreach", "KLD4C",
+        "magrittr", "microbenchmark", "mgcv", "parallel", "Rcpp"),
+  library, character.only=TRUE, logical.return=TRUE, quietly=TRUE)
+gc()
+</code>
+
+<h1>Named content with output (Transparent Invisible XML)</h1>
+<div>
+  There is a problem here: The comment incudes the output.
+  The rule for comment includes spaces and 'nothing' at the end, and the output element looks like 'nothing'.
+  The fix for this is not yet completely correct.
+</div>
+
+<code language="r" language-version="4.3.2" xml:space="preserve">
+5 %>% sqrt # same as sqrt(5)
+<named-content content-type="output">[1] 2.236068</named-content>
+8 %>% log  # same as log(8)
+<named-content content-type="output">[1] 2.079442</named-content>
+</code>
+
+<h1>Multi-line output</h1>
+
+<code language="r" language-version="4.3.2" xml:space="preserve">
+corpus.df &lt;- data.frame( # make corpus.df a data frame w/
+  WORD=words,           # the words in column 1
+  PART=parts)           # the parts in column 2
+saveRDS(corpus.df, file="files/corpus.df.RDS") # save it, then ...
+corpus.df[c(2:3, 13:14, 24:25, 35:36, 46:47),] # show (abbreviated) output
+<named-content content-type="output">
+    WORD PART
+2     a   p1
+3     c   p1
+13    t   p2
+14    b   p2
+24    b   p3
+25    e   p3
+35    b   p4
+36    e   p4
+46    e   p5
+47    a   p5
+</named-content>
+</code>
+
+<h1>The $ operator is used for variable extraction</h1>
+
+<code language="r" language-version="4.3.2" xml:space="preserve">
+(corpus.a &lt;- tapply( # make corpus.a the result of
+  FUN=droplevels,   # getting factors w/out unused levels
+  X=words,          # the words from the corpus
+  parts))           # when grouped by their parts
+$p1
+<named-content content-type="output">[1] b a c n b e u i b</named-content>
+</code>
+
+<h1>The regexp incorrectly recognizes `words` as a parameter, in front of `=`</h1>
+
+<code language="r" language-version="4.3.2" xml:space="preserve">
+c("rel. freq. of 't'"=sum(words=="t") / length(words),
+  "freq. of 't' pmw" =sum(words=="t") / length(words) * 1000000)
+<named-content content-type="output">
+rel. freq. of 't'  freq. of 't' pmw
+            8e-02             8e+04
+</named-content>
+</code>
+
+<h1>A named-content comment inside a regexp</h1>
+
+<code language="r" language-version="4.3.2" xml:space="preserve">ICEGB.wout.annot &lt;- lapply( # make ICEGB.wout.annot the result of applying
+   ICEGB.w.annot, gsub,  # to ICEGB.w.annot the function gsub, replacing
+   pattern="(?x)         <named-content content-type="comment"># (set free-spacing)<target id="page-110" target-type="pagenumber"/></named-content>
+   ^.*\\{                <named-content content-type="comment"># everything from beginning to {</named-content>
+   ([^}]+)               <named-content content-type="comment"># characters that are not } (but remember those!)</named-content>
+   \\}$                  <named-content content-type="comment"># till the }</named-content>
+   ", replacement="\\1", # by this, namely the word just remembered
+   perl=TRUE)            # using Perl-compatible expressions
+</code>
+
+</test>

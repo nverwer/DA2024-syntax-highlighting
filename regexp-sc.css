@@ -1,0 +1,445 @@
+/* css file for: scl.115.css page width: 160 mm ; page height: 240mm */
+:root {
+  --scl-blauw: #5080BB;
+    --scl-blauw-rgb: 80, 128, 187;
+    --scl-geel: #FDED3D;
+    --scl-wit: #FFFFFF;
+    --scl-grijs: #edf4ed;
+    --scl-rood: #e40038;
+    --scl-oranje: #f9e044;
+    --code-default: #4072ac;
+}
+:root, body, .p, td, th {
+  font-variant-numeric: lining-nums !important;
+}/*
+:root, body, #toc .toc-label, td, th, .caption-label, .pagenumber-block, section, .chapter-label {
+  font-variant-numeric: lining-nums !important;
+}*/
+/*  no indent after code etc. To be reverted if the author cares */
+div.panel + .p {
+  text-indent:0;
+  
+  }
+
+.boxed-text.code {
+  border: none;
+  border-left: solid .5em var(--scl-blauw);
+  background-color:f6f6f6;
+}
+code {
+    line-height:1.5em;
+}
+.box-main > code {
+  display:block;
+}
+code span.function-call { color: var(--code-default) }
+code span.literal { color: brown; }
+code span.string { color: #20794d; }
+code span.keyword { color: #446; }
+code span.punctuation { color: #003b4f; }
+code span.operator { color: #535353; }
+code span.number { color: #ad0000; } /*  red */
+code span.parameter { color: #747500; } /*  olivy */
+code span.identifier
+, code span.module-identifier
+{ color: #003B4f; } /*  navy-ish */
+code span.comment { color: #555; font-style: italic; }
+code span.output { color: #222; font-weight: bold; }
+
+code[code-type=output] span {
+  color:#222;
+  font-weight: bold;
+}
+code[code-type=output] + code
+{
+  padding-top:.5em;
+}
+.code.blue {
+	color:blue;
+}
+.code.green {
+	color:green;
+}
+.boxed-text.code .box-main {
+    padding-left: 1em;
+}
+tt {
+  color:var(--code-default);
+  font-variant-numeric: lining-nums;
+}
+
+sup.stack {
+	margin-right:-.1em;
+	vertical-align:-.025em;
+}
+sub.stack {
+	margin-left:-.15em;
+	vertical-align:.25em;
+}
+sub {
+	vertical-align:bottom;
+	bottom:-.3em;
+}
+*::footnote-marker {
+	content:string(footnote-marker);
+	font-variant-numeric: oldstyle-nums proportional-nums;
+}
+footnote-call {
+    font-family:"Minion 3", serif;
+    vertical-align:.6em;
+	line-height:none;
+	font-variant-numeric: oldstyle-nums proportional-nums;
+}
+*::footnote-call {
+	content:"";
+}
+.footnote.use-label footnote-marker {
+	display:run-in;
+	min-width:4mm;
+	padding-right:.5em;
+	font-family:"Minion 3", serif;
+	font-weight:bold;
+	font-variant-numeric: oldstyle-nums proportional-nums;
+}
+.disp-formula-label {
+	font-variant-numeric: oldstyle-nums proportional-nums;
+}	
+right-running-head, left-running-head {
+	font-variant-numeric: oldstyle-nums proportional-nums;
+}
+.footnote.use-label .note-p {
+	display:inline;
+}
+/*  markup for TIPS */
+.boxed-text.tip {
+  border: .1em solid green;
+  border-left: .5em solid green;
+  background-color:white;
+  padding:0;
+}
+.boxed-text.tip .box-title {
+  background-color: rgb(230, 255, 230);
+  padding:.5em;
+  font-weight:bold;
+}
+.boxed-text.tip .thumbholder, 
+.boxed-text.tip .box-title img {
+  padding-right: .5em;
+  }
+.boxed-text.tip .box-main {
+	border:none;
+}
+code {
+	white-space:pre-wrap;
+}
+.list-item-content .boxed-text {
+  margin-top: .3em;
+  margin-bottom: .6em;
+}
+tt
+, code {
+	font-family: mono, monospace;
+}
+.disp-formula-item {
+	display:table-row;
+	max-width:100%;
+}
+.disp-formula-item math {
+	display:inline;
+	max-width:90%;
+}
+.disp-formula-item * {
+	display:block math;
+}
+.disp-formula-item .disp-formula-label {
+	width:10%;
+	display:inline;
+}
+
+/* toc */
+
+.toc-subentry .toc-subentry .toc-subentry {
+	margin-left:10mm;
+	text-indent:0;
+}
+.toc-subentry .toc-subentry .toc-subentry .toc-label {
+	width:6mm;
+	padding-right:0;
+}
+.toc-subentry .toc-subentry .toc-subentry .toc-title-block {
+	padding-left:12mm;
+	text-indent:-6mm;
+	margin-left:0mm;
+}
+#toc-toc-entry71 {
+	break-inside:avoid;
+}
+#toc >.main>.toc-entry>.toc-title-block .toc-label {
+	display:block;
+}
+#toc >.main>.toc-entry>.toc-title-block .toc-title {
+	font-weight:bold;
+}
+#toc-toc-entry29 {
+	break-inside:avoid;
+}
+#toc .toc-pagenumber {
+	padding-left:0;
+}
+/* c1 */
+
+#p3 {word-spacing:.03em;}
+
+#list5-p8 {
+	/*hyphens:manual;*/
+	word-spacing:-.07em;
+}
+/* c2 */
+
+#c2.disp-formula-label {
+	width:10%;
+	display:inline-block;
+}
+#s2-1-1-list9 .list-item .list-item-label {
+	display:block;
+	float:left;
+	padding-right:0;
+}
+#s2-1-1-list9 .list-item .list-item-content {
+	display:block;
+	padding-left:6mm;
+	text-indent:-3mm;
+}
+#s2-1-1-list9 .list-item {
+	display:block;
+}
+#s2-1-1-list9-list-item1 {
+	word-spacing:.05em;
+}
+@page c2:nth(6) {margin-bottom:17mm;}
+@page c2:nth(44) {margin-bottom:16mm;}
+
+#s2-1-2-p13 {
+	word-spacing:.04em;
+}
+#tab1 table {
+	width:100%;
+}
+#s2-2-2-disp-quote4-p2 {
+	margin-top:6.75pt;
+}
+@page c2:nth(30) {
+	margin-bottom:17mm;
+}
+#s2-2-4-p8 {
+	page-break-before:always;
+	break-before:always;
+}
+#tab3 table {
+	width:80%;
+}
+#tab6 {
+	margin-top:0;
+}
+#tab6 table {
+	width:95%;
+}
+@page c2:nth(63) {
+	margin-bottom:15mm;
+}
+@page c2:nth(64) {
+	margin-bottom:15mm;
+}
+#s2-2-2-disp-quote3-p1 {
+	word-spacing:.05em;
+}
+@page c2:nth(23) {
+	margin-bottom:17mm;
+}
+#tab1 table {
+	width:100%;
+}
+#tab2 {
+	float:none;
+}
+#fig3 {
+	float:none;
+}
+#s2-4-1-boxed-text3 {
+	page-break-inside:avoid;
+}
+/* c3 */
+
+#s3-8-2-p7 {word-spacing:.03em;}
+
+#s3-10-p1 {page-break-after:always;} 
+
+@page c3:nth(2) {
+	margin-bottom:14mm;
+}
+#eq11 .disp-formula-label {
+	width:10%;
+	display:inline-block;
+}
+#eq12 .disp-formula-label {
+	width:10%;
+	display:inline-block;
+}
+#eq13 {
+	margin-bottom:0;
+	page-break-after:always;
+	break-after:always;
+}
+#s3-2-3-p5 {
+	page-break-after:avoid;
+}
+#tab9 td, #tab9 th {
+	padding-right:.2em;
+}
+#s3-1-boxed-text4 {
+	page-break-inside:avoid;
+}
+#s3-1-p16 {
+	word-spacing:.025em;
+}
+@page c3:nth(7) {
+	margin-bottom:15mm;
+}
+@page c3:nth(8) {
+	margin-bottom:15mm;
+}
+@page c3:nth(9) {
+	margin-bottom:15mm;
+}
+#fig11 .fig.panel {
+	display:inline-block;
+	width:50%;
+}
+#fig11 img {
+	width:98%; /* relative to reduced width of .panel above */
+}
+#s3-9-2-p4 {
+	text-indent:6mm;
+}
+@page c3:nth(85) {
+	margin-bottom:16mm;
+}
+/* c4 */
+
+#s4-4-1-p34 {word-spacing:.03em;}
+
+#tab10 table {
+	width:100%;
+}
+#tab11 td, #tab11 th {
+	padding-left:.1em;
+	padding-right:.1em;
+}
+@page c4:nth(23) {margin-bottom:14mm;}
+@page c4:nth(36) {margin-bottom:14mm;}
+@page c4:nth(39) {margin-bottom:30mm;}
+@page c4:nth(40) {margin-bottom:14mm;}
+
+#fig21 img {
+	width:77%;
+}
+#fig23 {
+	page-break-inside:auto;
+}
+#fig23 img {
+	width:82%;
+}
+#fig25 img {
+	width:82%;
+}
+#s4-4-2-boxed-text14 {
+	page-break-inside:avoid;
+}
+#s4-3-p4 {
+	text-indent:6mm;
+}
+/* c5 */
+#tab14 table {
+	width:100%;
+}
+#eq17 .disp-formula-label {
+	width:10%;
+	display:inline-block;
+}
+#fig26 {
+	float:none;
+}
+#fig27 img {
+	width:90%;
+}
+#tab14 td {
+	padding-top:0;
+	padding-bottom:0;
+}
+@page c5:nth(8) {
+	margin-bottom:15mm;
+}
+@page c5:nth(9) {
+	margin-bottom:15mm;
+}
+@page c5:nth(18) {
+	margin-bottom:15mm;
+}
+@page c5:nth(19) {
+	margin-bottom:15mm;
+}
+#s5-4-p10 {
+	hyphens:manual;
+}
+#fig29 img {
+	width:90%;
+}
+#fig31 {
+	float:none;
+}
+/* c6 */
+
+#s6-2-3-p1 {word-spacing:.03em;}
+
+#s6-1-1-p7 {
+	text-indent:6mm;
+}
+@page c6:nth(4) {
+	margin-bottom:15mm;
+}
+#s6-2-1-boxed-text5 {
+	page-break-inside:avoid;
+}
+@page c6:nth(24) {
+	margin-bottom:14mm;
+}
+/* c7 */
+/* refs */
+@page refs:nth(6) {
+	margin-bottom:14mm;
+}
+@page refs:nth(7) {
+	margin-bottom:16mm;
+}
+@page refs:nth(8) {
+	margin-bottom:16mm;
+}
+@page refs:nth(9) {
+	margin-bottom:16mm;
+}
+@page refs:nth(10) {
+	margin-bottom:16mm;
+}
+@page refs:nth(11) {
+	margin-bottom:16mm;
+}
+/* index */
+#book-back>section#index {
+	page-break-before:right;
+}
+@page index:nth(1) {
+	margin-bottom:14mm;
+}
+#s3-9-1-list2 .p {
+	text-align:left;
+}
