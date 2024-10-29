@@ -11,9 +11,8 @@ declare variable $sc:parser := ixml:transparent-invisible-xml($sc:grammar, map{}
 declare function sc:regexp($code as element(code))
 as element(code)
 {
-  let $stylesheet := doc('xmldb:exist://db/apps/da2024/xsl/jats-code-regexp.xsl')
-  return
-    transform:transform($code, $stylesheet, ())
+  $code
+  => transform:transform(doc('xmldb:exist://db/apps/da2024/xsl/jats-code-regexp.xsl'), ())
 };
 
 

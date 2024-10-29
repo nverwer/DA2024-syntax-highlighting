@@ -74,7 +74,7 @@ declare function local:code-section($code as element(code))
       <input type="radio" name="{$id-prefix}tabs" id="{$id-prefix}regexp"></input>
       <input type="radio" name="{$id-prefix}tabs" id="{$id-prefix}ixml"></input>
       <input type="radio" name="{$id-prefix}tabs" id="{$id-prefix}ixml-postprocessed"></input>
-      <input type="radio" name="{$id-prefix}tabs" id="{$id-prefix}ixml-formatted"></input>
+      <input type="radio" name="{$id-prefix}tabs" id="{$id-prefix}ixml-simplified"></input>
       <label for="{$id-prefix}original">original</label>
       <label for="{$id-prefix}regexp">regexp</label>
       <label for="{$id-prefix}ixml">ixml</label>

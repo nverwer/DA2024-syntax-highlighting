@@ -21,7 +21,7 @@
     </xsl:call-template>
   </xsl:template>
 
-  <xsl:template match="code//(lpar|rpar|lsbr|rsbr|dlsbr|drsbr|lcbr|rcbr)">
+  <xsl:template match="code//(comma|lpar|rpar|lsbr|rsbr|dlsbr|drsbr|lcbr|rcbr)">
     <xsl:call-template name="make-span">
       <xsl:with-param name="class" select="'punctuation'"/>
     </xsl:call-template>
@@ -98,7 +98,13 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
+
+  <xsl:template match="text()">
+    <span>
+      <xsl:sequence select="."/>
+    </span>
+  </xsl:template>
+
   <xsl:template match="styled-content">
     <span class="{string(@style)}"><xsl:sequence select="node()"/></span>
   </xsl:template>

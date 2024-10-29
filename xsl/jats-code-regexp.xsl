@@ -58,14 +58,18 @@
             <xsl:sequence select="r:styled-content('comment', .)"/>
           </xsl:when>
           <xsl:when test="matches(., '^('||$r:LITERAL_RE||')$')">
-            <xsl:sequence select="r:styled-content('literal', .)"/>
+            <span>
+              <xsl:sequence select="r:styled-content('literal', .)"/>
+            </span>
           </xsl:when>
           <xsl:when test="matches(., '^('||$r:STRING_RE||')$')">
             <xsl:sequence select="r:styled-content('string', .)"/>
           </xsl:when>
           <xsl:when test="matches(., '^('||$r:KEYWORD_RE||')$')">
             <xsl:sequence select="r:styled-content('keyword', normalize-space(.))"/>
-            <xsl:sequence select="replace(., '.*\S(\s*)$', '$1')"/>
+            <span>
+              <xsl:sequence select="replace(., '.*\S(\s*)$', '$1')"/>
+            </span>
           </xsl:when>
           <xsl:when test="matches(., '^('||$r:PUNCTUATION_RE||')$')">
             <xsl:sequence select="r:styled-content('punctuation', .)"/>
@@ -85,21 +89,29 @@
           </xsl:when>
           <xsl:when test="matches(., '^('||$r:PARAMETER_RE||')$')">
             <xsl:sequence select="r:styled-content('parameter', replace(., '(\S)\s*=\s*$', '$1'))"/>
-            <xsl:sequence select="replace(., '.*\S(\s*=\s*)$', '$1')"/>
+            <span>
+              <xsl:sequence select="replace(., '.*\S(\s*=\s*)$', '$1')"/>
+            </span>
           </xsl:when>
           <xsl:when test="matches(., '^('||$r:IDENT_RE||')$')">
             <xsl:sequence select="r:styled-content('identifier', replace(., '\s+$', ''))"/>
             <xsl:if test="matches(., '\s$')">
-              <xsl:sequence select="replace(., '^.*\S', '')"/>
+              <span>
+                <xsl:sequence select="replace(., '^.*\S', '')"/>
+              </span>
             </xsl:if>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:sequence select="."/>
+            <span>
+              <xsl:sequence select="."/>
+            </span>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:matching-substring>
       <xsl:non-matching-substring>
-        <xsl:sequence select="."/>
+        <span>
+          <xsl:sequence select="."/>
+        </span>
       </xsl:non-matching-substring>
     </xsl:analyze-string>
   </xsl:template>
@@ -110,7 +122,7 @@
     <!-- JATS output -->
     <!--<styled-content style="{$style}"><xsl:sequence select="$styled-content"/></styled-content>-->
     <!-- HTML output -->
-    <span class="{$style}">
+    <span class="{$style}" title="{$style}">
         <xsl:sequence select="$styled-content"/>
     </span>
   </xsl:function>
@@ -119,7 +131,8 @@
   <xsl:template match="code">
     <!-- unindent is the extra, superfluous spacing that all lines have -->
     <xsl:variable name="unindent" as="xs:string?" select="(analyze-string(string(.), '^( *)\S', 'm')/fn:match/fn:group/string-length(.) =&gt; min()) ! (1 to .) ! ' ' =&gt; string-join('')"/>
-    <code>
+    <xsl:copy>
+      <xsl:sequence select="@*"/>
       <xsl:choose>
         <xsl:when test="lower-case(@language)='r' and not(@code-type='output')">
           <xsl:apply-templates select="node()">
@@ -130,7 +143,7 @@
           <xsl:apply-templates select="node()"/>
         </xsl:otherwise>
       </xsl:choose>
-    </code>
+    </xsl:copy>
   </xsl:template>
   
   

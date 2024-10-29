@@ -9,6 +9,9 @@ parts &lt;- factor(paste0("p", rep(1:5, c(9,10,10,10,11))))
 </code>
 
 <h1>A comment in R code</h1>
+<div>
+  Note that <code>"+"</code> is a function, but the regular expression cannot detect that.
+</div>
 
 <code language="r" language-version="4.3.2" xml:space="preserve">
 "+"(2, 3) # same as the 'normal' way of 2+3
